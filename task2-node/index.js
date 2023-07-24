@@ -49,9 +49,9 @@ app.post("/person",async(req,res,next)=>{
     try{
         const {name,mobileNo,gender,age} = req.body
         const mobileNumberPattern = /^\d{10,13}$/;
-        if(mobileNumberPattern.test(mobileNo)){
-            throw new Error("Not valid mobile No.")
-        }
+        // if(mobileNumberPattern.test(mobileNo)){
+        //     throw new Error("Not valid mobile No.")
+        // }
         console.log(req.body)
         if(!name||!mobileNo||!gender||!age){
             throw new Error("All details are mandatory")
