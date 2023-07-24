@@ -32,11 +32,17 @@ app.get("/",(req,res,next)=>{
 })
 
 app.get("/list",async(req,res,next)=>{
-    const users = await userModel.find({})
-    if(!users.length){
-        return res.render('list',{errMessage:"No users here",users:""})
+    try{
+        const users = await userModel.find({})
+        if(!users.length){
+            return res.render('list',{errMessage:"No users here",users:""})
+        }
+        return res.render("list",{errMessage:"",users:users})    
     }
-    return res.render("list",{errMessage:"",users:users})
+    catch(err){
+        console.log(err)
+        next(err)
+    }
 })
 
 app.post("/person",async(req,res,next)=>{
@@ -64,6 +70,7 @@ app.get("/form",(req,res,next)=>{
 app.post("/person/:id",async(req,res,next)=>{
     try{
         const userDetails = req.body
+        const mobileNumberPattern = /^\d{10,13}$/;
         const {mobileNo} = req.body
         if(mobileNumberPattern.test(mobileNo)){
             throw new Error("Not valid mobile No.")
