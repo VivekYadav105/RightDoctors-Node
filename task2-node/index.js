@@ -72,9 +72,9 @@ app.post("/person/:id",async(req,res,next)=>{
         const userDetails = req.body
         const mobileNumberPattern = /^\d{10,13}$/;
         const {mobileNo} = req.body
-        if(mobileNumberPattern.test(mobileNo)){
-            throw new Error("Not valid mobile No.")
-        }
+        // if(mobileNumberPattern.test(mobileNo)){
+        //     throw new Error("Not valid mobile No.")
+        // }
         const {id} = req.params
         const user = await userModel.findByIdAndUpdate(id,userDetails)
         req.flash("success","User details changed successfully")
